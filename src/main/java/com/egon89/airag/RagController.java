@@ -14,14 +14,16 @@ import dev.langchain4j.rag.query.Query;
 public class RagController {
 
   private final ContentRetriever contentRetriever;
+  private final ConversationalChainService conversationalChainService;
 
-    public RagController(ContentRetriever contentRetriever) {
+    public RagController(ContentRetriever contentRetriever, ConversationalChainService conversationalChainService) {
         this.contentRetriever = contentRetriever;
+        this.conversationalChainService = conversationalChainService;
     }
 
   @PostMapping("/ask")
-  public String ask(@RequestBody AskRequest question) {
-    return "post Hello, " + question;
+  public ResponseEntity<String> ask(@RequestBody AskRequest input) {
+    return ResponseEntity.ok(conversationalChainService.execute(input.question));
   }
 
   @PostMapping("/v2/ask")

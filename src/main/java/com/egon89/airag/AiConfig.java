@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration;
 
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.Tokenizer;
+import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.embedding.onnx.HuggingFaceTokenizer;
 import dev.langchain4j.model.language.LanguageModel;
+import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.ollama.OllamaEmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaLanguageModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
@@ -55,5 +57,13 @@ public class AiConfig {
     public Tokenizer tokenizer() {
         System.out.println("Creating Tokenizer");
         return new HuggingFaceTokenizer();
+    }
+
+    @Bean
+    public ChatLanguageModel chatLanguageModel() {
+        return OllamaChatModel.builder()
+                .baseUrl("http://localhost:11434")
+                .modelName("llama3")
+                .build();
     }
 }
