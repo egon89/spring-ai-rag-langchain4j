@@ -57,8 +57,6 @@ public class AssistantController {
         });
 
         return smartStream;
-
-        // return langChain4jAssistant.chat(id, message);
     }
     
     @PostMapping
